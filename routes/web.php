@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\CheckAge;
 
 Route::get('/', function () {
     return view('home');
@@ -36,3 +37,12 @@ app('router')->fallback(function () {
 // Auth routes
 Route::get('/signin', [AuthController::class, 'SignIn'])->name('signin');
 Route::post('/check-signin', [AuthController::class, 'CheckSignIn'])->name('check-signin');
+
+// Age input and protected route
+Route::get('/age', [AuthController::class, 'showAgeForm'])->name('age.form');
+Route::post('/save-age', [AuthController::class, 'saveAge'])->name('age.save');
+
+// Route test middleware tuổi
+Route::get('/protected', function () {
+    return 'Bạn đã đủ 18 tuổi!';
+})->middleware('check.age');

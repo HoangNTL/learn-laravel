@@ -32,4 +32,20 @@ class AuthController extends Controller
             return redirect()->back()->with('message', 'Đăng ký thất bại');
         }
     }
+    // Hiển thị form nhập tuổi
+    public function showAgeForm()
+    {
+        return view('age');
+    }
+
+    // Lưu tuổi vào session
+    public function saveAge(Request $request)
+    {
+        $age = $request->input('age');
+        if (!is_numeric($age) || $age < 0) {
+            return redirect()->back()->with('error', 'Vui lòng nhập tuổi hợp lệ!');
+        }
+        $request->session()->put('age', $age);
+        return redirect()->back()->with('message', 'Đã lưu tuổi vào session!');
+    }
 }
