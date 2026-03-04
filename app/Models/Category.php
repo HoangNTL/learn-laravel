@@ -59,4 +59,12 @@ class Category extends Model
         }
         return $ids;
     }
+
+    /**
+     * Get the products for this category.
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
